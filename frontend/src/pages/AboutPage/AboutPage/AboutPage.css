@@ -1,0 +1,926 @@
+/* AboutPage.css */
+/* AboutPage.css */
+.about-hero1 {
+  background: url("https://png.pngtree.com/background/20230607/original/pngtree-close-up-of-plants-in-tropical-jungle-picture-image_2903460.jpg") 
+              center center / cover no-repeat fixed;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px; /* Remove fixed padding for better responsiveness */
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* Full screen height */
+  display: flex; /* For centering content */
+  align-items: center; /* Vertical center */
+  justify-content: center; /* Horizontal center */
+}
+
+.about-hero1::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 61, 46, 0.65);
+  z-index: 0;
+  animation: slowFade 20s infinite alternate;
+}
+
+/* Slow pulsing effect */
+@keyframes slowFade {
+  0% {
+    background: rgba(15, 61, 46, 0.55);
+  }
+  100% {
+    background: rgba(15, 61, 46, 0.75);
+  }
+}
+
+.about-hero1-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 20px;
+  animation: fadeInUp 2s ease-out forwards;
+  transform: translateY(30px);
+  opacity: 0;
+  text-align: center;
+}
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.about-hero1 h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.about-hero1 p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  animation: fadeIn 3s ease forwards;
+  opacity: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-hero1 h1 {
+    font-size: 2.5rem;
+  }
+  .about-hero1 p {
+    font-size: 1.2rem;
+  }
+}
+
+.about-hero {
+  background: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80") center no-repeat fixed;
+  background-size: contain; /* Show full image */
+  color: #fff;
+  text-align: center;
+  padding: 160px 20px 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 61, 46, 0.65);
+  z-index: 0;
+  animation: slowFade 20s infinite alternate;
+}
+
+/* Slow pulsing effect */
+@keyframes slowFade {
+  0% {
+    background: rgba(15, 61, 46, 0.55);
+  }
+  100% {
+    background: rgba(15, 61, 46, 0.75);
+  }
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 2s ease-out forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.about-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.about-hero p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  animation: fadeIn 3s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Floating leaf animation */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: url('https://cdn-icons-png.flaticon.com/512/2909/2909762.png') no-repeat center/contain;
+  opacity: 0.2;
+  animation: floatLeaf 30s linear infinite;
+  top: -100px;
+  left: -100px;
+}
+
+@keyframes floatLeaf {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(150vw, 200vh) rotate(360deg);
+  }
+}
+
+.animated-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130%;
+  background: radial-gradient(circle, #e8f5e9 10%, transparent 11%);
+  background-size: 60px 60px;
+  animation: moveBG 60s linear infinite;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+@keyframes moveBG {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000px 1000px;
+  }
+}
+/* Overlay with blur + fade effect */
+.mission-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 40, 0, 0.5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeInOverlay 0.4s ease forwards;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    background: rgba(0, 40, 0, 0);
+    opacity: 0;
+  }
+  to {
+    background: rgba(0, 40, 0, 0.5);
+    opacity: 1;
+  }
+}
+
+/* Stylish glass modal container */
+.mission-modal {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideDownFade 0.5s ease-out forwards;
+  overflow: hidden;
+}
+
+/* Slide and fade animation for modal */
+@keyframes slideDownFade {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Scrollable content inside modal */
+.modal-content-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 24px;
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 transparent;
+}
+
+.modal-content-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content-scroll::-webkit-scrollbar-thumb {
+  background-color: #4caf50;
+  border-radius: 10px;
+}
+
+/* Modal heading with drop entrance */
+.mission-modal h2 {
+  font-size: 2rem;
+  color: #374638;
+  margin-bottom: 1.2rem;
+  animation: slideFromTop 0.6s ease-out forwards;
+}
+
+@keyframes slideFromTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal content text */
+.mission-modal p {
+  font-size: 1.1rem;
+  color: #ffffff;
+  line-height: 1.7;
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 2px solid #4caf50;
+  color: #2e7d32;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-close:hover {
+  background-color: #4caf50;
+  color: white;
+  transform: scale(1.15);
+}
+
+
+/* Modal action button */
+.mission-modal button {
+  padding: 12px 28px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.mission-modal button:hover {
+  background-color: #388e3c;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Add glow/highlight to heading */
+.modal-title {
+  font-size: 2.2rem;
+  color: #2e7d32;
+  margin-bottom: 1.2rem;
+  animation: slideFromTop 0.6s ease-out forwards;
+  text-shadow: 0 2px 10px rgba(76, 175, 80, 0.4);
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* --- Mission Section --- */
+.about-mission {
+  position: relative;
+  background: linear-gradient(to bottom, #f5faf6, #edf6f1);
+  padding: 100px 20px;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  background: url('https://images.unsplash.com/photo-1616627784643-06bfa7e2aa51?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  z-index: 0;
+  opacity: 0.08;
+  transform: translateZ(0);
+  filter: blur(3px);
+}
+
+/* --- Heading --- */
+.about-mission-heading {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-mission-heading h1 {
+  font-size: 3rem;
+  color: #1c4532;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.about-mission-heading p {
+  font-size: 1.2rem;
+  color: #4a755a;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+
+  overflow: hidden;           /* Hide text until it's revealed */
+  white-space: nowrap;        /* Keep text in a single line */
+  width: 0;                   /* Start hidden */
+  animation: typing 7s steps(40, end) infinite;
+}
+
+/* Typing animation keyframes (type + erase) */
+@keyframes typing {
+  0% { width: 0; }
+  40% { width: 100%; }   /* Fully typed */
+  60% { width: 100%; }   /* Pause */
+  100% { width: 0; }     /* Erase */
+}
+
+
+/* --- Mission Cards Container --- */
+.about-mission-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+}
+
+/* --- Card Styling --- */
+.mission-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 45px 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(129,199,132,0.25) 0%, transparent 60%);
+  transform: rotate(25deg);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.mission-card:hover::before {
+  opacity: 1;
+}
+
+.mission-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border-color: #81c784;
+}
+
+/* --- Mission Icon --- */
+.mission-icon {
+  font-size: 3.2rem;
+  color: #2e7d32;
+  margin-bottom: 1.2rem;
+  transition: transform 0.4s ease, color 0.4s ease, filter 0.4s ease;
+}
+
+.mission-card:hover .mission-icon {
+  transform: rotate(12deg) scale(1.25);
+  color: #66bb6a;
+  filter: drop-shadow(0 0 6px #a5d6a7);
+}
+
+/* --- Text --- */
+.mission-card h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1c4532;
+  margin-bottom: 1rem;
+}
+
+.mission-card p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .about-mission-heading h1 {
+    font-size: 2.3rem;
+  }
+  .mission-card {
+    padding: 35px 25px;
+  }
+  .mission-icon {
+    font-size: 2.8rem;
+  }
+}
+
+
+
+
+/* Section */
+.about-team-pro {
+  position: relative;
+  padding: 120px 40px;
+  background: linear-gradient(135deg, #f3faf6, #d8f3dc);
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay background */
+.team-floating-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(163, 235, 178, 0.15), rgba(102, 187, 106, 0.08));
+  z-index: 0;
+}
+
+/* Title */
+.team-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1b3d2f;
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Grid */
+.team-grid-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card */
+.team-glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-glass-card:hover {
+  transform: translateY(-12px) scale(1.06);
+  box-shadow: 0 20px 45px rgba(76, 175, 80, 0.25);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Image Styling */
+.team-img-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.team-img-wrap img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4caf50;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.team-glass-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
+
+/* Tag Bubble */
+.tag {
+  position: absolute;
+  bottom: 4px;
+  right: 12px;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Text */
+.team-details h3 {
+  font-size: 1.4rem;
+  color: #1f3628;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.team-details p {
+  font-size: 1rem;
+  color: #4a6d55;
+  font-weight: 500;
+}
+/* SECTION */
+.veda-timeline-section {
+  padding: 120px 30px;
+  background: linear-gradient(to bottom, #e9f6ef, #f6fff9);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tree Scenery Background */
+.veda-timeline-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: url("https://png.pngtree.com/png-clipart/20220430/original/pngtree-pine-tree-silhouette-png-image_7601734.png")
+    repeat-x bottom;
+  background-size: contain;
+  opacity: 0.7;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Heading */
+.veda-timeline-heading {
+  font-size: 3rem;
+  text-align: center;
+  color: #205235;
+  font-weight: 800;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Container */
+.veda-timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Vertical Vine */
+.veda-timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: #2e7d32;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+/* Leaves on Vine */
+.veda-timeline-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 100%;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/010/852/913/non_2x/leaf-icon-vector-png.png");
+  background-size: 20px auto;
+  background-repeat: repeat-y;
+  background-position: center;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Responsive Position Adjustments */
+@media (max-width: 768px) {
+  .veda-timeline-container::before,
+  .veda-timeline-container::after {
+    left: 30px; /* Moves the vine and leaf line together */
+    transform: none;
+  }
+}
+
+
+/* Timeline Item */
+.veda-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 60px 0;
+  z-index: 2;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.veda-timeline-item:hover {
+  transform: scale(1.03);
+}
+/* Floating Bubble */
+.veda-timeline-dot {
+  background: #ffffff; /* Removed bluish blur */
+  border: 3px solid #81c784;
+  color: #1b5e20;
+  font-size: 2rem;
+  padding: 25px;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  z-index: 3;
+  animation: floatBubble 4s ease-in-out infinite;
+}
+
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Responsive: Center the dots and content */
+@media (max-width: 768px) {
+  .veda-timeline-item {
+    align-items: center;
+    text-align: center;
+    padding-left: 0; /* Remove left padding */
+  }
+
+  .veda-timeline-dot {
+    margin: 0 auto 20px auto; /* Center the bubble */
+  }
+
+
+}
+
+
+/* Event Content */
+.veda-timeline-content {
+  background: #ffffff; /* Removed transparent bluish background */
+  border: 1px solid rgba(130, 180, 150, 0.3);
+  padding: 18px 24px;
+  border-radius: 14px;
+  max-width: 500px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.veda-timeline-item:hover .veda-timeline-content {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Text */
+.veda-timeline-year {
+  font-weight: 700;
+  color: #2e7d32;
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.veda-timeline-event {
+  font-size: 1.15rem;
+  color: #1a3b2b;
+  font-weight: 600;
+}
+
+.veda-timeline-summary {
+  margin-top: 10px;
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* More Button */
+.veda-timeline-more-btn {
+  margin-top: 15px;
+  background-color: #2e7d32;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.veda-timeline-more-btn:hover {
+  background-color: #1b5e20;
+  transform: scale(1.05);
+}
+
+/* --- MODAL STYLING --- */
+.veda-timeline-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 38, 12, 0.65);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeInModal 0.4s ease;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.veda-timeline-modal {
+  background: rgba(236, 255, 240, 0.7);
+  backdrop-filter: blur(20px);
+  padding: 50px;
+  max-width: 800px;
+  width: 95%;
+  border-radius: 20px;
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.veda-modal-title {
+  font-size: 2rem;
+  color: #1b5e20;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.veda-timeline-modal p {
+  font-size: 1.15rem;
+  color: #212121;
+  line-height: 1.8;
+}
+
+.veda-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 24px;
+  background: #ffffff;
+  border: none;
+  font-size: 1.6rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #2e7d32;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.veda-modal-close:hover {
+  background: #2e7d32;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .veda-timeline-container::before {
+    left: 30px;
+  }
+
+  .veda-timeline-item {
+    align-items: flex-start;
+    padding-left: 60px;
+  }
+
+  .veda-timeline-content {
+    max-width: 100%;
+  }
+}

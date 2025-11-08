@@ -1,0 +1,208 @@
+/* MessageModal.css */
+/* Unique class names prefixed with 'msg-modal-' to avoid conflicts */
+.msg-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(34, 47, 34, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: msg-modal-fadeIn 0.3s ease;
+}
+
+.msg-modal-content {
+  background: #f9fff2;
+  padding: 2.5rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 24px rgba(34, 47, 34, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.msg-modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #2f3d2a;
+  cursor: pointer;
+  transition: color 0.2s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.msg-modal-close:hover {
+  color: #76c043;
+  background-color: rgba(118, 192, 67, 0.1);
+}
+
+.msg-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.msg-modal-icon-container {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(to bottom, #e6f3e1, #d0e6c5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.msg-modal-lock-icon {
+  width: 48px;
+  height: 48px;
+  fill: #4a7043;
+}
+
+.msg-modal-title {
+  color: #2f3d2a;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.msg-modal-text {
+  color: #4a7043;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 85%;
+}
+
+.msg-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.msg-modal-cancel-button,
+.msg-modal-proceed-button {
+  padding: 0.85rem 1.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msg-modal-cancel-button {
+  background: #f0f0f0;
+  color: #5a5a5a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.msg-modal-cancel-button:hover {
+  background: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.msg-modal-proceed-button {
+  background: linear-gradient(to bottom, #76c043, #5da533);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(118, 192, 67, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.msg-modal-proceed-button:hover {
+  background: linear-gradient(to bottom, #6bb33c, #4f8f2a);
+  box-shadow: 0 4px 10px rgba(118, 192, 67, 0.4);
+  transform: translateY(-2px);
+}
+
+.msg-modal-proceed-button::after {
+  content: "→";
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.msg-modal-proceed-button:hover::after {
+  transform: translateX(4px);
+}
+
+@keyframes msg-modal-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .msg-modal-content {
+    max-width: 90%;
+    padding: 2rem 1.5rem;
+  }
+  
+  .msg-modal-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 280px;
+  }
+  
+  .msg-modal-cancel-button,
+  .msg-modal-proceed-button {
+    padding: 0.8rem;
+    width: 100%;
+  }
+  
+  .msg-modal-text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .msg-modal-content {
+    padding: 1.8rem 1.2rem;
+  }
+  
+  .msg-modal-icon-container {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .msg-modal-lock-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .msg-modal-title {
+    font-size: 1.6rem;
+  }
+  
+  .msg-modal-text {
+    font-size: 1rem;
+  }
+}

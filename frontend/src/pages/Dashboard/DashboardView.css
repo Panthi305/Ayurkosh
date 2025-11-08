@@ -1,0 +1,875 @@
+/* ==========================================================================
+   General Reset and Base Styles
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f6f9f7;
+  color: #07321d !important;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Color Palette
+   ========================================================================== */
+:root {
+  --primary-green: #094926;
+  --secondary-green: #2a643e;
+  --accent-cream: #f7e8c3;
+  --neutral-dark: #1a2d27;
+  --neutral-light: #e8f0ec;
+  --error-red: #e63946;
+  --white: #ffffff;
+  --shadow: rgba(26, 92, 69, 0.15);
+}
+
+/* ==========================================================================
+   Dashboard Container
+   ========================================================================== */
+.plant-dashboard-container {
+  min-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f6f9f7 0%, #e8f0ec 100%);
+}
+
+/* ===============================
+   Premium Header Styling
+=================================*/
+.plant-header {
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  padding: 1.5rem 2rem;
+  color: var(--white);
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Flex Layout for Header Content */
+.plant-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===============================
+   Profile Image Button
+=================================*/
+.plant-account-menu {
+  flex-shrink: 0;
+}
+
+.plant-account-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 50%;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.plant-account-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.plant-account-icon {
+  font-size: 2.3rem;
+  color: var(--accent-cream);
+}
+
+.plant-profile-image {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-cream);
+  transition: transform 0.25s ease;
+}
+
+/* ===============================
+   Welcome Text
+=================================*/
+.plant-header-text {
+  flex: 1 1 auto;
+  min-width: 200px;
+}
+
+.plant-welcome-title {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--accent-cream);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.plant-welcome-subtitle {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: var(--neutral-light);
+  opacity: 0.9;
+}
+
+/* ===============================
+   Combined Profile Status Card
+=================================*/
+.plant-profile-status-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.plant-profile-status-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.plant-profile-status-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.plant-completion-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent-cream);
+}
+
+.plant-progress-bar-container {
+  width: 140px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.plant-progress-bar {
+  height: 100%;
+  background: var(--accent-cream);
+  transition: width 0.5s ease-in-out;
+}
+
+.plant-completion-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent-cream);
+}
+
+/* ===============================
+   Slim Update Button
+=================================*/
+.plant-update-profile-header-btn.slim {
+  background: var(--accent-cream);
+  color: var(--primary-green);
+  border: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.25s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.plant-update-profile-header-btn.slim:hover {
+  background: #e8d9a4;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+Main Dashboard Layout
+========================================================================== */
+.plant-dashboard-main {
+  flex: 1;
+  padding: 1.5rem;
+  background: #f8fafc;
+  /* soft neutral background */
+}
+
+/* ==========================================================================
+Section Titles
+========================================================================== */
+.plant-section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.plant-section-title::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--primary-green);
+  opacity: 0.2;
+}
+
+/* ==========================================================================
+Quick Actions Section
+========================================================================== */
+.plant-quick-actions-section {
+  margin-bottom: 2rem;
+}
+
+.plant-quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+
+.plant-quick-action-tile {
+  background: linear-gradient(145deg, var(--primary-green), var(--secondary-green));
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--accent-cream);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.plant-quick-action-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.plant-quick-action-icon {
+  font-size: 2rem;
+}
+
+.plant-quick-action-tile span {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+Content Two-Column Layout
+========================================================================== */
+.plant-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* ==========================================================================
+Card Base Styles
+========================================================================== */
+.plant-recommendations-card,
+.plant-activity-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.plant-recommendations-card:hover,
+.plant-activity-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+Find My Plant Card
+========================================================================== */
+.plant-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  margin-bottom: 0.4rem;
+}
+
+.plant-card-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1.25rem;
+}
+
+.plant-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.plant-form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.plant-form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--neutral-light);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.95);
+  resize: vertical;
+  min-height: 110px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plant-form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(26, 92, 69, 0.15);
+}
+
+.plant-find-button {
+  background: var(--primary-green);
+  color: var(--accent-cream);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.plant-find-button:hover {
+  background: var(--secondary-green);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+Recent Activity Card
+========================================================================== */
+.plant-activity-list {
+  flex: 1;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-green) var(--neutral-light);
+}
+
+.plant-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--neutral-light);
+}
+
+.plant-activity-item:last-child {
+  border-bottom: none;
+}
+
+.plant-activity-icon {
+  font-size: 1.4rem;
+  color: var(--primary-green);
+}
+
+.plant-activity-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--neutral-dark);
+}
+
+.plant-activity-time {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+
+/* ==========================================================================
+   Account Modal (Professional Modern Redesign)
+   ========================================================================== */
+.plant-account-page-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeInOverlay 0.25s ease-out;
+  backdrop-filter: blur(3px);
+}
+
+.plant-account-page-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  border: none;
+  animation: scaleIn 0.25s ease-out;
+}
+
+/* Close Button */
+.plant-close-account-page {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.plant-close-account-page:hover {
+  color: var(--primary-green);
+  transform: rotate(90deg);
+}
+
+/* Title */
+.plant-account-page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* Alert */
+.missing-fields-alert {
+  background: #fef2f2;
+  color: var(--error-red);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+/* Profile Image */
+.plant-profile-image-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.plant-profile-image-container {
+  position: relative;
+}
+
+.plant-profile-image-large {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--primary-green);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease;
+}
+
+.plant-profile-image-large:hover {
+  transform: scale(1.03);
+}
+
+.plant-profile-placeholder {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: var(--neutral-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--primary-green);
+}
+
+.plant-profile-placeholder-icon {
+  font-size: 3.4rem;
+  color: #9ca3af;
+}
+
+/* Upload Button */
+.plant-profile-upload-button {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--primary-green);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.plant-profile-upload-button:hover {
+  background: var(--secondary-green);
+  transform: scale(1.1);
+}
+
+/* Form */
+.plant-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.plant-form-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--neutral-dark);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.plant-form-input {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  background: #f9fafb;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.plant-form-input:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(26, 92, 69, 0.12);
+  background: #ffffff;
+}
+
+/* Password Section */
+.password-section {
+  margin-top: 1.75rem;
+}
+
+.toggle-password-btn {
+  background: #f3f4f6;
+  color: var(--neutral-dark);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.25s ease;
+}
+
+.toggle-password-btn:hover {
+  background: #e5e7eb;
+}
+
+/* Actions */
+.plant-account-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.plant-save-account-button,
+.plant-cancel-button {
+  padding: 0.85rem 1.6rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+
+.plant-save-account-button {
+  background: var(--primary-green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.plant-save-account-button:hover {
+  background: var(--secondary-green);
+  transform: translateY(-2px);
+}
+
+.plant-cancel-button {
+  background: #6b7280;
+  color: #fff;
+}
+
+.plant-cancel-button:hover {
+  background: #4b5563;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MERGED & ORGANIZED
+   ===================================================== */
+
+@media (min-width: 1024px) {
+  .plant-content-grid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+/* ===== Tablet & Small Desktop (max-width: 1024px) ===== */
+@media (max-width: 1024px) {
+
+  /* Dashboard Main Padding */
+  .plant-dashboard-main {
+    padding: 1rem;
+  }
+
+  /* Quick Actions resize */
+  .plant-quick-actions-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .plant-quick-action-tile {
+    padding: 1rem;
+  }
+
+  /* Content Grid stacks into single column */
+  .plant-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Card Title adjustments */
+  .plant-card-title {
+    font-size: 1.15rem;
+  }
+
+  .plant-card-subtitle {
+    font-size: 0.85rem;
+  }
+
+  /* Account Modal Size */
+  .plant-account-page-content {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+/* ===== Tablets & Landscape Mobiles (max-width: 900px) ===== */
+@media (max-width: 900px) {
+
+  /* Header layout switches to column */
+  .plant-header-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .plant-header-text {
+    order: 2;
+  }
+
+  .plant-profile-status-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .plant-update-profile-header-btn.slim {
+    align-self: center;
+  }
+}
+
+/* ===== Small Tablets & Large Mobiles (max-width: 768px) ===== */
+@media (max-width: 768px) {
+
+  /* Header adjustments */
+  .plant-header {
+    padding: 1.5rem;
+  }
+
+  .plant-welcome-title {
+    font-size: 1.6rem;
+  }
+
+  .plant-welcome-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* Progress bar shrink */
+  .plant-progress-bar-container {
+    width: 100px;
+  }
+
+  /* Quick Action Padding */
+  .plant-quick-action-tile {
+    padding: 1.25rem;
+  }
+
+  /* Card Padding */
+  .plant-recommendations-card,
+  .plant-activity-card {
+    padding: 1.5rem;
+  }
+
+  /* Activity List shrink */
+  .plant-activity-list {
+    max-height: 250px;
+  }
+
+  /* Move main content down for footer if needed */
+  .plant-dashboard-main {
+    margin-bottom: 45px;
+  }
+}
+
+/* ===== Mobile Portrait (max-width: 576px) ===== */
+@media (max-width: 576px) {
+
+  /* Quick Actions into 2 columns */
+  .plant-quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Plant content grid single column */
+  .plant-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller Quick Action tiles */
+  .plant-quick-action-tile {
+    padding: 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .plant-quick-action-icon {
+    font-size: 1.5rem;
+  }
+
+  .plant-quick-action-tile span {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== Small Mobile (max-width: 480px) ===== */
+@media (max-width: 480px) {
+
+  /* Reduce dashboard padding */
+  .plant-dashboard-container {
+    padding: 1rem;
+  }
+
+  /* Header text smaller */
+  .plant-welcome-title {
+    font-size: 1.4rem;
+  }
+
+  .plant-welcome-subtitle {
+    font-size: 0.85rem;
+  }
+
+  /* Quick Actions - single column */
+  .plant-quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plant-quick-action-tile {
+    padding: 1rem;
+  }
+
+  /* Form font-size adjustments */
+  .plant-form-textarea,
+  .plant-form-input {
+    font-size: 0.85rem;
+  }
+
+  /* Buttons smaller */
+  .plant-find-button,
+  .plant-save-account-button,
+  .plant-cancel-button {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  /* Profile image scaled down */
+  .plant-profile-image-large,
+  .plant-profile-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+
+  .plant-profile-upload-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Smaller account modal title */
+  .plant-account-page-title {
+    font-size: 1.4rem;
+  }
+
+  /* Saved Plant small thumb */
+  .saved-plant-img {
+    width: 60px;
+    height: 60px;
+  }
+}

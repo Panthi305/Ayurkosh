@@ -1,0 +1,267 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34, 47, 34, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: #f9fff2;
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 8px 24px rgba(34, 47, 34, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #2f3d2a;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #76c043;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.form-section {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sidebar-section {
+    padding: 1rem;
+    background: linear-gradient(to bottom, #f1f8e9, #e6f3e1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    color: #2f3d2a;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+label {
+    display: block;
+    color: #4a7043;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cddc39;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #76c043;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: #76c043;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4a7043;
+    line-height: 1.4;
+}
+
+.terms-link {
+    color: #76c043;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.terms-link:hover {
+    color: #689f38;
+    text-decoration: underline;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #76c043;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-button:hover {
+    background: #689f38;
+}
+
+.toggle-link {
+    font-size: 0.9rem;
+    color: #4a7043;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.toggle-link span {
+    color: #76c043;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.toggle-link span:hover {
+    color: #689f38;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Small devices (phones, 320px and up) */
+@media (min-width: 320px) {
+    .modal-content {
+        padding: 1rem;
+        max-width: 95%;
+    }
+
+    .modal-close {
+        font-size: 1.3rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-section {
+        padding: 0.5rem;
+    }
+
+    .sidebar-section {
+        padding: 0.5rem;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .modal-content {
+        padding: 2rem;
+        max-width: 800px;
+        flex-direction: row;
+    }
+
+    .modal-body {
+        flex-direction: row;
+    }
+
+    .form-section,
+    .sidebar-section {
+        flex: 1;
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+    .modal-content {
+        max-width: 900px;
+        padding: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 0.85rem;
+        font-size: 1rem;
+    }
+
+    .login-button {
+        padding: 0.9rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .modal-content {
+        max-width: 1000px;
+    }
+}

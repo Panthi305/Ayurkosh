@@ -1,0 +1,179 @@
+.plant-search-results-page {
+  padding: 40px 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #1f7661;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #e6f4f1;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #1a3c34;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  gap: 12px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-form input {
+  padding: 12px 16px;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-form input:focus {
+  border-color: #1f7661;
+  box-shadow: 0 0 0 3px rgba(31, 118, 97, 0.1);
+}
+
+.search-form button {
+  background: #1f7661;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.search-form button:hover {
+  background: #1a6150;
+  transform: translateY(-1px);
+}
+
+.plant-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.plant-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plant-rank {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.medal {
+  font-size: 1.75rem;
+}
+
+.gold { color: #f4c430; }
+.silver { color: #a8b1bd; }
+.bronze { color: #d97706; }
+
+.rank-badge {
+  background: #1a3c34;
+  color: white;
+  border-radius: 50%;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.botanical-name {
+  font-style: italic;
+  color: #1f7661;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.summary {
+  margin: 12px 0;
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.uses, .properties {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 8px 0;
+}
+
+.score {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-bar {
+  background: #e5e7eb;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.score-fill {
+  background: #1f7661;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.no-results {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 48px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}

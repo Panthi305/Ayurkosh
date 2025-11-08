@@ -1,0 +1,242 @@
+/*
+  Enhanced Responsive CSS for the Orders Component
+  -----------------------------------------------
+  This CSS refines the existing styles to ensure the component
+  is fully responsive across all screen sizes, from mobile to desktop.
+*/
+
+/* --- General & Base Styles --- */
+/* The general container is already good, but we can make the padding responsive. */
+.orders-container {
+  padding: 20px; /* Reduced padding for smaller screens */
+  background: linear-gradient(to bottom right, #f5fdf7, #eaf5ee);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.orders-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  padding: 20px; /* Reduced padding for smaller screens */
+  border-radius: 14px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+}
+
+.orders-title {
+  font-size: 1.8rem; /* Slightly smaller for mobile */
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 25px; /* Reduced margin */
+  border-bottom: 2px solid #e0f2e9;
+  padding-bottom: 8px;
+  text-align: center; /* Center the title on mobile */
+}
+
+/* --- Progress Steps (Stepper) --- */
+.orders-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Reduced margin */
+  position: relative;
+  padding: 0 5px; /* Reduced padding */
+}
+
+/* Grey background line */
+.orders-steps::before {
+  content: "";
+  position: absolute;
+  top: 24px; /* Adjusted position to match smaller icons */
+  left: 0;
+  width: 100%;
+  height: 2px; /* Thinner line */
+  background: #d8e6dd;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+/* Filled green progress line */
+.progress-line {
+  position: absolute;
+  top: 24px; /* Adjusted position */
+  left: 0;
+  height: 2px; /* Thinner line */
+  background: #2e7d32;
+  z-index: 1;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* Individual step */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  z-index: 2;
+  text-align: center;
+  min-width: 50px; /* Prevents icons from getting too squished */
+}
+
+/* Step icon */
+.step-icon {
+  width: 40px; /* Smaller icon size for mobile */
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #cfd8dc; /* Thinner border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem; /* Smaller font size */
+  color: #9e9e9e;
+  margin-bottom: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Step label */
+.step-label {
+  font-size: 0.8rem; /* Smaller font size for mobile */
+  font-weight: 500;
+  color: #9e9e9e;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevents labels from wrapping */
+}
+
+/* --- Active & Completed States (No changes needed, as they scale with the base styles) --- */
+.step.active .step-icon {
+  background: #2e7d32;
+  border-color: #2e7d32;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+}
+
+.step.active .step-label {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.step.completed .step-icon {
+  background: #2e7d32;
+  border-color: #2e7d32;
+  color: white;
+}
+
+.step.completed .step-label {
+  color: #2e7d32;
+}
+
+
+/* --- Content Layout --- */
+.orders-content {
+  display: flex;
+  flex-direction: column; /* Stacks the main content and summary on mobile */
+  gap: 20px; /* Reduced gap */
+}
+
+.orders-main {
+  flex: 2;
+  min-width: unset; /* Remove min-width to allow full flexibility */
+}
+
+.orders-summary {
+  flex: 1;
+  min-width: unset; /* Remove min-width to allow full flexibility */
+  background: #f9fcfa;
+  border: 1px solid #dfe9e2;
+  padding: 15px; /* Reduced padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.05);
+}
+
+
+/* --- Loading & Error Messages --- */
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 40px 15px; /* Reduced padding */
+  font-size: 1rem; /* Smaller font size */
+  border-radius: 10px;
+}
+
+.loading-message {
+  color: #388e3c;
+  background: #edf8ef;
+}
+
+.error-message {
+  color: #b71c1c;
+  background: #ffebee;
+}
+
+/* --- Media Queries for Tablets and Desktops --- */
+@media (min-width: 768px) {
+  /* Restores original styles for wider screens */
+  .orders-container {
+    padding: 30px;
+  }
+
+  .orders-wrapper {
+    padding: 30px;
+  }
+
+  .orders-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    text-align: left; /* Aligns title to the left on desktop */
+  }
+
+  .orders-steps {
+    margin-bottom: 40px;
+    padding: 0 10px;
+  }
+
+  .orders-steps::before {
+    top: 28px;
+    height: 3px;
+  }
+
+  .progress-line {
+    top: 28px;
+    height: 3px;
+  }
+
+  .step-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    border: 3px solid #cfd8dc;
+  }
+
+  .step-label {
+    font-size: 0.95rem;
+  }
+
+  .orders-content {
+    flex-direction: row; /* Lays out the content side-by-side */
+    gap: 25px;
+  }
+
+  .orders-main {
+    min-width: 320px;
+  }
+
+  .orders-summary {
+    min-width: 300px;
+    padding: 20px;
+  }
+
+  .loading-message,
+  .error-message {
+    padding: 60px 20px;
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,260 @@
+:root {
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 80px;
+    --dark-green: #0f3d2e;
+    --light-green: #d8e6d0;
+    --vibrant-green: #4caf50;
+    --text-light: #ffffff;
+}
+
+.appSidebar {
+    width: var(--sidebar-width);
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    height: 100vh;
+    transition: width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.appSidebar--collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.appSidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 80px;
+}
+
+.appSidebar__brand {
+    padding-left: 0px !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.appSidebar__brandIcon {
+    font-size: 2.4rem;
+    color: var(--light-green);
+    transition: transform 0.3s ease;
+}
+
+.appSidebar__brandIcon:hover {
+    transform: scale(1.1);
+}
+
+/* Updated Toggle Buttons */
+.appSidebar__toggleBtn,
+.appSidebar__expandBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0px !important;
+    color: var(--light-green);
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appSidebar__lucideIcon {
+    width: 1.7rem;
+    height: 1.7rem;
+}
+
+.appSidebar__toggleBtn:hover,
+.appSidebar__expandBtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.appSidebar__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.appSidebar__menu li {
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    position: relative;
+    /* For tooltip positioning */
+}
+
+.appSidebar__menu li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.appSidebar__menu li.active {
+    background-color: var(--vibrant-green);
+    color: white;
+}
+
+.appSidebar__menuIcon {
+    font-size: 1.1rem;
+    min-width: 24px;
+}
+
+.appSidebar__menuText {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.appSidebar--collapsed .appSidebar__logout .appSidebar__menuText {
+    position: absolute;
+    left: calc(var(--sidebar-collapsed-width) + 10px);
+    top: 50%;
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 200;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+
+.appSidebar--collapsed .appSidebar__logout:hover .appSidebar__menuText {
+    opacity: 1;
+    visibility: visible;
+}
+
+.appSidebar__footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: auto;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.appSidebar__weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-top: 0.5rem;
+    transition: background 0.2s ease;
+}
+
+.appSidebar__weather:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.appSidebar__weather span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.appSidebar__weather .temperature {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.appSidebar__weather .location {
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.appSidebar__logout {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    position: relative;
+    /* For tooltip positioning */
+}
+
+.appSidebar__logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.appSidebar__logout .appSidebar__menuIcon {
+    font-size: 1.1rem;
+    min-width: 24px;
+}
+
+/* Hide tooltips in collapsed state */
+.appSidebar--collapsed .appSidebar__menu li .appSidebar__menuText {
+    position: absolute;
+    left: calc(var(--sidebar-collapsed-width) + 10px);
+    top: 50%;
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 200;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    /* prevent accidental clicks */
+}
+
+.appSidebar--collapsed .appSidebar__menu li:hover .appSidebar__menuText {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Remove the box-shadow from .appSidebar__weather */
+.appSidebar__weather {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .appSidebar {
+        transform: translateX(-100%);
+    }
+
+    .appSidebar--open {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .appSidebar {
+        display: none !important;
+        transition: transform 0.3s ease;
+    }
+}

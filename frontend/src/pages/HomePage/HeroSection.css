@@ -1,0 +1,91 @@
+
+/* -------------------------------------
+  HERO SECTION
+------------------------------------- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #1a2f22;
+  /* Darker green for depth */
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f5f8f0;
+  /* Light cream for contrast */
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+  color: #d8e6d0;
+  /* Soft green-gray for readability */
+}
+
+.hero-content button {
+  background: #4caf50;
+  /* Vibrant green for CTA */
+  border: none;
+  color: #f5f8f0;
+  /* Light cream text */
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.hero-content button:hover {
+  background: #388e3c;
+  /* Slightly darker green on hover */
+}
+
+.cursor {
+  display: inline-block;
+  background-color: transparent;
+  color: #f5f8f0;
+  /* Match hero text */
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+

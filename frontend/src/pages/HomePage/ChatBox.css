@@ -1,0 +1,332 @@
+.chatbox {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dcedc8;
+    border-radius: 14px;
+    background: #f9fff2;
+    box-shadow: 0 6px 15px rgba(47, 61, 42, 0.08);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.chatbox.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    z-index: 9999;
+    background: #f9fff2;
+    display: flex;
+    flex-direction: row;
+}
+
+.chatbox-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.chatbox.fullscreen .chatbox-main {
+    margin-left: 0;
+}
+
+.chatbox.fullscreen .chatbox-sidebar.open ~ .chatbox-main {
+    margin-left: 250px;
+}
+
+.chatbox-header {
+    background: #76c043;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.chatbox-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chatbox-header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.chatbox-header button,
+.chatbox-sidebar-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+}
+
+.chatbox-header button:hover,
+.chatbox-sidebar-toggle:hover {
+    color: #e0f2f1;
+}
+
+.chatbox-sidebar {
+    width: 250px;
+    background: #f0f4e9;
+    border-right: 1px solid #dcedc8;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 10000;
+    overflow-y: auto;
+}
+
+.chatbox-sidebar.open {
+    transform: translateX(0);
+}
+
+.chatbox-sidebar-content {
+    padding: 15px;
+    flex: 1;
+}
+
+.chatbox-sidebar-button {
+    width: 100%;
+    background: #76c043;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chatbox-sidebar-button:hover {
+    background: #689f38;
+}
+
+.chatbox-history-list {
+    margin-top: 10px;
+}
+
+.chatbox-history-item {
+    background: white;
+    border: 1px solid #e0f2f1;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chatbox-history-item:hover {
+    background: #f5f5f5;
+}
+
+.chatbox-history-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #2f3d2a;
+}
+
+.chatbox-history-description {
+    font-size: 0.85rem;
+    color: #5a6b55;
+    margin-top: 5px;
+}
+
+.chatbox-history-empty {
+    font-size: 0.9rem;
+    color: #5a6b55;
+    text-align: center;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+}
+
+.chatbox-messages {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    background: #fbfef8;
+    scrollbar-width: auto;
+    scrollbar-color: #76c043 #fbfef8;
+    max-height: calc(100% - 100px); /* Adjusted for removed history button */
+    -ms-overflow-style: auto;
+}
+
+.chatbox-messages::-webkit-scrollbar {
+    width: 12px;
+}
+
+.chatbox-messages::-webkit-scrollbar-thumb {
+    background-color: #76c043;
+    border-radius: 6px;
+    border: 3px solid #fbfef8;
+}
+
+.chatbox-messages::-webkit-scrollbar-thumb:hover {
+    background-color: #689f38;
+}
+
+.chatbox-messages::-webkit-scrollbar-track {
+    background: #fbfef8;
+    border-radius: 6px;
+}
+
+.chatbox-message {
+    background: white;
+    border: 1px solid #e0f2f1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #2f3d2a;
+    line-height: 1.4;
+    white-space: pre-line; 
+    word-wrap: break-word;
+}
+
+.chatbox-input {
+    display: flex;
+    border-top: 1px solid #dcedc8;
+    padding: 10px;
+    background: #ffffff;
+    align-items: flex-end;
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+}
+
+.chatbox-input textarea {
+    flex: 1;
+    border: 1px solid #cddc39;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    min-height: 40px;
+    max-height: 100px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chatbox-input textarea:focus {
+    border-color: #76c043;
+}
+
+.chatbox-input textarea:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.chatbox-input button {
+    background: #76c043;
+    color: white;
+    border: none;
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chatbox-input button:hover:not(:disabled) {
+    background: #689f38;
+}
+
+.chatbox-input button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+.chatbox-history-buttons {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #f9fff2;
+}
+
+.chatbox-history-buttons button {
+    background: #76c043;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chatbox-history-buttons button:hover {
+    background: #689f38;
+}
+
+@media (max-width: 768px) {
+    .chatbox {
+        height: 350px;
+        max-width: 100%;
+    }
+
+    .chatbox-message {
+        font-size: 0.9rem;
+    }
+
+    .chatbox-input textarea,
+    .chatbox-input button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .chatbox-header {
+        font-size: 1rem;
+    }
+
+    .chatbox-sidebar {
+        width: 200px;
+    }
+
+    .chatbox.fullscreen .chatbox-sidebar.open ~ .chatbox-main {
+        margin-left: 200px;
+    }
+
+    .chatbox-history-title {
+        font-size: 0.9rem;
+    }
+
+    .chatbox-history-description {
+        font-size: 0.8rem;
+    }
+
+    .chatbox-messages {
+        max-height: calc(100% - 90px); /* Adjusted for removed history button */
+    }
+
+    .chatbox-messages::-webkit-scrollbar {
+        width: 10px;
+    }
+}

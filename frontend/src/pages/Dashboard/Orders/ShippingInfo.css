@@ -1,0 +1,72 @@
+.shipping-container {
+  background: #f5f8f4;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.shipping-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #2e5d34;
+}
+
+.shipping-form label {
+  display: block;
+  font-weight: 500;
+  margin-top: 10px;
+  color: #2e5d34;
+}
+
+.shipping-form input,
+.shipping-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #c5d6c3;
+  background: white;
+}
+
+.shipping-row {
+  display: flex;
+  gap: 10px;
+}
+
+.shipping-options-title {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #2e5d34;
+}
+
+.shipping-option {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.shipping-option input {
+  margin-right: 10px;
+}
+
+.shipping-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn {
+  background: #ccc;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.continue-btn {
+  background: #2e5d34;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

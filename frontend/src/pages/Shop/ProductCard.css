@@ -1,0 +1,275 @@
+.product-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.image-container {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.stock-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stock-badge.high-stock {
+  background-color: #2e7d32;
+}
+
+.stock-badge.low-stock {
+  background-color: #f44336;
+  animation: pulse 1.5s infinite;
+}
+
+.stock-badge.out-of-stock {
+  background-color: #757575;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.product-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+  color: #1a1a1a;
+  flex-grow: 1;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 3em;
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+  gap: 8px;
+}
+
+.price {
+  font-size: 13px;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.category-tag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.category-tag.plant {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.category-tag.seed {
+  background-color: #f4e4d8;
+  color: #8B4513;
+}
+
+.category-tag.skincare {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.category-tag.accessory {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.category-tag.medicine {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.product-card button {
+  background-color: #2e7d32;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.product-card button:hover {
+  background-color: #1b5e20;
+}
+
+.product-card button.disabled {
+  background-color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .product-card {
+    padding: 12px;
+    min-height: 320px;
+  }
+
+  .product-card img {
+    height: 160px;
+  }
+
+  .product-card h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    padding: 10px;
+    min-height: 300px;
+  }
+
+  .product-card img {
+    height: 140px;
+  }
+
+  .product-card h3 {
+    font-size: 16px;
+  }
+
+  .price-container {
+    gap: 6px;
+  }
+
+  .price,
+  .category-tag {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    padding: 8px;
+    min-height: 280px;
+  }
+
+  .product-card img {
+    height: 120px;
+  }
+
+  .product-card h3 {
+    font-size: 15px;
+  }
+
+  .stock-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .price,
+  .category-tag {
+    font-size: 11px;
+  }
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 22px;
+  color: #777;
+  transition: color 0.3s ease;
+  z-index: 3;
+}
+
+.wishlist-btn:hover {
+  color: #e63946;
+}
+
+.wishlist-btn.wishlisted {
+  color: #e63946;
+}
+
+
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 20px;
+  color: #777;
+  transition: color 0.3s ease;
+  z-index: 3;
+}
+
+.wishlist-btn:hover {
+  color: #e63946;
+}
+
+.wishlist-btn.wishlisted {
+  color: #e63946;
+}

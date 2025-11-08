@@ -1,0 +1,38 @@
+.shop-footer {
+  background-color: #0f3d2e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.shop-footer p {
+  margin: 5px 0;
+}
+
+.footer-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .shop-footer {
+    padding: 15px;
+  }
+  
+  .shop-footer p {
+    font-size: 14px;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}

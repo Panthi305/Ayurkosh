@@ -1,0 +1,152 @@
+/* FAQ  */
+/* FAQ Section */
+.faq-section {
+  background: linear-gradient(135deg, #f4fbe7, #e7f2dc);
+  padding: 20px 20px !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.faq-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.faq-title {
+  font-size: 2.5rem;
+  color: #2f3d2a;
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+.faq-title::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background: #76c043;
+  display: block;
+  margin: 8px auto 20px;
+  border-radius: 2px;
+}
+
+.faq-subtitle {
+  font-size: 1.1rem;
+  color: #4a7043;
+  margin-bottom: 40px;
+  opacity: 0.85;
+  text-align: center;
+}
+
+/* Grid wrapper for perfect alignment */
+.faq-chat-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Columns */
+.faq-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* FAQ list */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* FAQ cards */
+.faq-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(47, 61, 42, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  border: 1px solid #dcedc8;
+  text-align: left;
+}
+
+.faq-card.active {
+  box-shadow: 0 10px 25px rgba(34, 49, 29, 0.15);
+}
+
+.faq-header {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2f3d2a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+.faq-header:hover {
+  background: #f1f8e9;
+}
+
+.faq-content {
+  padding: 0 1.5rem 1rem;
+  font-size: 1rem;
+  color: #4a7043;
+  background: #fbfef8;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.faq-toggle-icon {
+  font-size: 1.5rem;
+  color: #76c043;
+  font-weight: bold;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Chatbox sizing */
+.faq-column-chat .chatbox {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .faq-chat-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-column-chat .chatbox {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 40px 15px;
+  }
+
+  .faq-title {
+    font-size: 2rem;
+  }
+
+  .faq-subtitle {
+    font-size: 1rem;
+  }
+
+  .faq-header {
+    font-size: 0.95rem;
+  }
+
+  .faq-content {
+    font-size: 0.95rem;
+  }
+}

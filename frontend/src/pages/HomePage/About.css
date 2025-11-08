@@ -1,0 +1,207 @@
+/* -------------------------------------
+   ABOUT SECTION (Premium Look)
+------------------------------------- */
+/* -------------------------------------
+  ABOUT SECTION
+------------------------------------- */
+.about-section {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #f5f8f0 0%, #e8f5e0 100%);
+  /* Soft cream to light green gradient */
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  /* Base gap for larger screens */
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1 1 500px;
+}
+
+.about-text h2 {
+  font-size: 2.8rem;
+  color: #2f3d2a;
+  /* Dark green-gray for headings */
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.about-text h2::after {
+  content: '';
+  display: block;
+  width: clamp(40px, 5vw, 60px);
+  /* Responsive width: min 40px, max 60px, scales with viewport */
+  height: 3px;
+  background: #4caf50;
+  
+  /* Vibrant green underline */
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.about-text h2::after
+ {
+  content: '';
+  display: block;
+  width: clamp(40px, 5vw, 60px); /* responsive */
+  height: 3px;
+  background: #4caf50; /* green underline */
+  margin: 8px auto 0;   /* centers the line */
+  border-radius: 2px;
+}
+
+
+.about-text p {
+  font-size: 1.1rem;
+  color: #4a7043;
+  /* Muted green for text */
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.about-image-wrapper {
+  flex: 1 1 400px;
+  position: relative;
+}
+
+.about-image-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(47, 61, 42, 0.1);
+  /* Subtle green shadow */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-image-glass:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 36px rgba(47, 61, 42, 0.15);
+  /* Darker green shadow on hover */
+}
+
+.about-image-glass img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.about-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 70px;
+  /* Base margin for larger screens */
+}
+
+.highlight-box {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(232, 245, 224, 0.3);
+  /* Light green border */
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  flex: 1 1 200px;
+  max-width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(47, 61, 42, 0.05);
+  /* Subtle green shadow */
+}
+
+.highlight-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(47, 61, 42, 0.1);
+  /* Darker green shadow on hover */
+}
+
+.highlight-box h3 {
+  font-size: 2rem;
+  color: #2f3d2a;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-box p {
+  font-size: 0.95rem;
+  color: #4a7043;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-image-wrapper {
+    order: -1;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .about-text {
+    text-align: center;
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+  }
+
+  .about-text h2::after {
+    width: clamp(30px, 8vw, 50px);
+    margin: 8px auto;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+  }
+
+  .about-highlights {
+    margin-top: 40px;
+    gap: 20px;
+  }
+
+  .highlight-box {
+    padding: 20px;
+    max-width: 180px;
+  }
+
+  .highlight-box h3 {
+    font-size: 1.8rem;
+  }
+
+  .highlight-box p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 60px 15px;
+  }
+
+  .about-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-text p {
+    font-size: 0.95rem;
+  }
+
+  .about-highlights {
+    margin-top: 30px;
+  }
+
+  .highlight-box {
+    max-width: 160px;
+    padding: 15px;
+  }
+}

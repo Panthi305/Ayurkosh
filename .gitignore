@@ -1,0 +1,40 @@
+# ==== Python Backend ====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environments
+backend/venv/
+backend/env/
+backend/.venv/
+
+# Environment files
+backend/.env
+
+# Logs
+*.log
+
+# Build/cache
+build/
+dist/
+*.egg-info/
+
+# IDE/system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ==== React Frontend ====
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/build/
+
+# ==== Misc ====
+*.zip
+*.tar
+*.rar
