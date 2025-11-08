@@ -34,7 +34,7 @@ const Sidebar = ({ userId, isSidebarOpen, toggleSidebar, activeView, setActiveVi
 
     const fetchUserProfile = async (uid) => {
         try {
-            const res = await axios.get("http://localhost:5000/get_user_profile", {
+            const res = await axios.get("https://ayurkosh-backend.onrender.com/get_user_profile", {
                 params: { userId: uid }
             });
 

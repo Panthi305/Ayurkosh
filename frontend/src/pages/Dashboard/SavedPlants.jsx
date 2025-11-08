@@ -16,7 +16,7 @@ const SavedPlant = () => {
             return;
         }
         try {
-            const res = await fetch(`http://localhost:5000/get_saved_plants?userId=${userId}`);
+            const res = await fetch(`https://ayurkosh-backend.onrender.com/get_saved_plants?userId=${userId}`);
             if (res.ok) {
                 const data = await res.json();
                 setSavedPlants(data);
@@ -45,7 +45,7 @@ const SavedPlant = () => {
             return;
         }
         try {
-            const res = await fetch(`http://localhost:5000/unsave_plant`, {
+            const res = await fetch(`https://ayurkosh-backend.onrender.com/unsave_plant`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, common_name: commonName }),

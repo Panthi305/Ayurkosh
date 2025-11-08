@@ -35,7 +35,7 @@ const SearchResult = () => {
                 return;
             }
             try {
-                const res = await fetch(`http://localhost:5000/api/suggest-plants?query=${encodeURIComponent(input)}`);
+                const res = await fetch(`https://ayurkosh-backend.onrender.com/api/suggest-plants?query=${encodeURIComponent(input)}`);
                 if (res.ok) {
                     const data = await res.json();
                     setSuggestions(data);
@@ -68,7 +68,7 @@ const SearchResult = () => {
         const checkSaved = async () => {
             if (userId && plant?.common_name) {
                 try {
-                    const res = await fetch(`http://localhost:5000/get_saved_plants?userId=${userId}`);
+                    const res = await fetch(`https://ayurkosh-backend.onrender.com/get_saved_plants?userId=${userId}`);
                     if (res.ok) {
                         const savedList = await res.json();
                         const exists = savedList.some(p => p.common_name === plant.common_name);
@@ -85,7 +85,7 @@ const SearchResult = () => {
 
     const recordSearch = async (plantData) => {
         try {
-            await fetch("http://localhost:5000/record_search", {
+            await fetch("https://ayurkosh-backend.onrender.com/record_search", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, plant: plantData })
@@ -107,7 +107,7 @@ const SearchResult = () => {
             : { userId, plant: plant };
 
         try {
-            const res = await fetch(`http://localhost:5000/${url}`, {
+            const res = await fetch(`https://ayurkosh-backend.onrender.com/${url}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -124,7 +124,7 @@ const SearchResult = () => {
     };
     const handleDownloadPDF = async (commonName) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/generate-pdf?name=${encodeURIComponent(commonName)}`, {
+            const response = await fetch(`https://ayurkosh-backend.onrender.com/api/generate-pdf?name=${encodeURIComponent(commonName)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/pdf",
@@ -158,7 +158,7 @@ const SearchResult = () => {
         setSuggestions([]); // Clear suggestions on search
 
         try {
-            const res = await fetch(`http://localhost:5000/api/search-plant?name=${encodeURIComponent(searchQuery)}`);
+            const res = await fetch(`https://ayurkosh-backend.onrender.com/api/search-plant?name=${encodeURIComponent(searchQuery)}`);
             if (!res.ok) {
                 throw new Error(res.status === 404 ? "No plant found for this name." : "Server error occurred.");
             }
@@ -677,7 +677,7 @@ const SearchResult = () => {
                 <div className="map-container">
                     <h3>Where It's Grown (Heatmap)</h3>
                     <iframe
-                        src={`http://localhost:5000/api/state-heatmap?name=${encodeURIComponent(plant.common_name)}`}
+                        src={`https://ayurkosh-backend.onrender.com/api/state-heatmap?name=${encodeURIComponent(plant.common_name)}`}
                         title="State Heatmap"
                         style={{ width: "100%", height: "500px", border: "none", borderRadius: "12px", marginTop: "1rem" }}
                     />

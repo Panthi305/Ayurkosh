@@ -18,7 +18,7 @@ const ShippingInfo = ({ onBack, onContinue }) => {
   // Fetch saved shipping info or user profile
   useEffect(() => {
     if (storedUserId) {
-      fetch(`http://localhost:5000/shopping-info/${storedUserId}`)
+      fetch(`https://ayurkosh-backend.onrender.com/shopping-info/${storedUserId}`)
         .then((res) => res.json())
         .then((data) => {
           if (!data.error) {
@@ -47,7 +47,7 @@ const ShippingInfo = ({ onBack, onContinue }) => {
       ...formData,
     };
 
-    fetch("http://localhost:5000/shopping-info", {
+    fetch("https://ayurkosh-backend.onrender.com/shopping-info", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

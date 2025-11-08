@@ -43,7 +43,7 @@ export default function ChatBox() {
 
   const loadHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/chat-history", {
+      const res = await axios.get("https://ayurkosh-backend.onrender.com/chat-history", {
         params: { email: userEmail },
       });
 
@@ -81,7 +81,7 @@ export default function ChatBox() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/chatbot",
+        "https://ayurkosh-backend.onrender.com/chatbot",
         {
           message: trimmed,
           email: userEmail || undefined,
@@ -104,7 +104,7 @@ export default function ChatBox() {
     if (userEmail && messages.length > 1) { // Only save if there are actual messages
       try {
         await axios.post(
-          "http://localhost:5000/save-conversation",
+          "https://ayurkosh-backend.onrender.com/save-conversation",
           { email: userEmail },
           { headers: { "Content-Type": "application/json" } }
         );

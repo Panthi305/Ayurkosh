@@ -19,7 +19,7 @@ const WishlistPage = () => {
         const fetchWishlist = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost:5000/get_wishlist_details?userId=${userId}`
+                    `https://ayurkosh-backend.onrender.com/get_wishlist_details?userId=${userId}`
                 );
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
@@ -52,7 +52,7 @@ const WishlistPage = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/wishlist_remove", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/wishlist_remove", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, productId }),

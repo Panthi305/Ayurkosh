@@ -29,7 +29,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             return;
         }
         try {
-            const res = await fetch("http://localhost:5000/login", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -77,7 +77,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             return;
         }
         try {
-            const res = await fetch("http://localhost:5000/signup", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ fullName, email, password }),

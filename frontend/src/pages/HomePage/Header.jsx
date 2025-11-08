@@ -26,7 +26,7 @@ function Header({ scrolled, onContactClick }) {
     }, []);
     const recordSearch = async (plantData) => {
         try {
-            await fetch("http://localhost:5000/record_search", {
+            await fetch("https://ayurkosh-backend.onrender.com/record_search", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, plant: plantData })
@@ -90,7 +90,7 @@ function Header({ scrolled, onContactClick }) {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5000/api/search-plant?name=${encodeURIComponent(query)}`);
+            const response = await fetch(`https://ayurkosh-backend.onrender.com/api/search-plant?name=${encodeURIComponent(query)}`);
             const data = await response.json();
             if (response.ok) {
                 localStorage.setItem("searchResult", JSON.stringify(data));
@@ -115,7 +115,7 @@ function Header({ scrolled, onContactClick }) {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5000/api/suggest-plants?query=${encodeURIComponent(query)}`);
+            const response = await fetch(`https://ayurkosh-backend.onrender.com/api/suggest-plants?query=${encodeURIComponent(query)}`);
             const data = await response.json();
             if (response.ok) {
                 setSuggestions(data);

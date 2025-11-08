@@ -20,7 +20,7 @@ const PlantSearchResults = () => {
     if (!query.trim()) return alert("Please enter your preferences");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/search_plants", {
+      const res = await axios.post("https://ayurkosh-backend.onrender.com/api/search_plants", {
         query,
         top_k: 10, // now always fetching 10
       });

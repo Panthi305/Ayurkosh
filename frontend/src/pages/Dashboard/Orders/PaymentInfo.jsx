@@ -62,7 +62,7 @@ const PaymentInfo = ({ onBack, onContinue }) => {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/shopping-info/payment", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/shopping-info/payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(paymentData),

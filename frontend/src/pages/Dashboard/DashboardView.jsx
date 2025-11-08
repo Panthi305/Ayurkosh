@@ -54,7 +54,7 @@ const DashboardView = () => {
   }, [navigate]);
   const fetchUserProfile = async (uid) => {
     try {
-      const res = await axios.get("http://localhost:5000/get_user_profile", {
+      const res = await axios.get("https://ayurkosh-backend.onrender.com/get_user_profile", {
         params: { userId: uid }
       });
       if (res.data && !res.data.error) {
@@ -96,8 +96,8 @@ const DashboardView = () => {
     const fetchHistories = async () => {
       try {
         const [plantRes, productRes] = await Promise.all([
-          axios.get(`http://localhost:5000/get_search_history`, { params: { userId } }),
-          axios.get(`http://localhost:5000/get_product_search_history`, { params: { userId } }) // you'll make sure backend exists
+          axios.get(`https://ayurkosh-backend.onrender.com/get_search_history`, { params: { userId } }),
+          axios.get(`https://ayurkosh-backend.onrender.com/get_product_search_history`, { params: { userId } }) // you'll make sure backend exists
         ]);
 
         const plantHistory = Array.isArray(plantRes.data)
@@ -185,7 +185,7 @@ const DashboardView = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/search_plants", {
+      const res = await axios.post("https://ayurkosh-backend.onrender.com/api/search_plants", {
         query: plantPreferences,
         top_k: 10
       });
@@ -229,7 +229,7 @@ const DashboardView = () => {
         payload.confirmPassword = confirmPassword;
       }
 
-      const res = await axios.put("http://localhost:5000/update_profile", payload);
+      const res = await axios.put("https://ayurkosh-backend.onrender.com/update_profile", payload);
       if (res.data.message) {
         alert("Profile updated successfully!");
         setShowAccountPage(false);

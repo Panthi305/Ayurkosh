@@ -20,7 +20,7 @@ const ReviewOrder = ({ cartItems, shippingInfo, paymentMethod, onBack, onPlaceOr
         const email = localStorage.getItem("userEmail");
 
         try {
-            const res = await fetch("http://localhost:5000/api/orders/place", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/api/orders/place", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, email, shippingInfo })

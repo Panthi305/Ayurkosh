@@ -35,7 +35,7 @@ const OrderList = ({
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/${userId}`, {
+            const response = await fetch(`https://ayurkosh-backend.onrender.com/api/orders/${userId}`, {
                 credentials: "include",
             });
             if (!response.ok) {
@@ -84,7 +84,7 @@ const OrderList = ({
         };
 
         try {
-            const res = await fetch("http://localhost:5000/api/orders/update", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/api/orders/update", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -115,7 +115,7 @@ const handleRemoveItem = async (productId) => {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/orders/remove", {
+    const res = await fetch("https://ayurkosh-backend.onrender.com/api/orders/remove", {
   method: "DELETE",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ userId, email, product_id: productId }),
@@ -138,7 +138,7 @@ const handleRemoveItem = async (productId) => {
         try {
             const subtotal = calculateSubtotal();
             const res = await fetch(
-                `http://localhost:5000/api/coupons/suggestions?userEmail=${encodeURIComponent(
+                `https://ayurkosh-backend.onrender.com/api/coupons/suggestions?userEmail=${encodeURIComponent(
                     email
                 )}&orderTotal=${subtotal}`,
                 { credentials: "include" }
@@ -166,7 +166,7 @@ const handleRemoveItem = async (productId) => {
         }
         try {
             const subtotal = calculateSubtotal();
-            const res = await fetch("http://localhost:5000/api/coupons/apply", {
+            const res = await fetch("https://ayurkosh-backend.onrender.com/api/coupons/apply", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ code: couponCode, userId, userEmail: email, orderTotal: subtotal }),
