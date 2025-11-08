@@ -18,63 +18,56 @@ MONGO_URI = os.getenv("MONGODB_URI")
 # MongoDB client setup
 # -------------------------
 try:
-    # Lazy connection: connection happens on first query
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000, connect=False)
 
-    # Optional: verify connection
+    # Verify connection
     try:
         client.admin.command('ping')
         print("✅ MongoDB connection verified!")
     except Exception as e:
         print("⚠️ MongoDB ping failed:", e)
 
-    # -------------------------
     # Databases
-    # -------------------------
     vedavana_db = client["vedavana"]
     plant_ecommerce_db = client["plantEcommerce"]
 
-    # -------------------------
-    # Collections dictionary
-    # -------------------------
-    collections = {
-        # Vedavana DB
-        "users": vedavana_db["users"],
-        "chat_messages": vedavana_db["chat_messages"],
-        "conversations": vedavana_db["conversations"],
-        "coupons": vedavana_db["coupons"],
-        "contact_messages": vedavana_db["contact_messages"],
+    # Collections
+    users_collection = vedavana_db["users"]
+    chat_messages_collection = vedavana_db["chat_messages"]
+    conversations_collection = vedavana_db["conversations"]
+    coupons_collection = vedavana_db["coupons"]
+    contact_messages_collection = vedavana_db["contact_messages"]
 
-        # Plant E-commerce DB
-        "plants": plant_ecommerce_db["plants"],
-        "seeds": plant_ecommerce_db["seeds"],
-        "skincare": plant_ecommerce_db["skincare"],
-        "accessories": plant_ecommerce_db["accessories"],
-        "medicines": plant_ecommerce_db["medicines"],
-        "purchased": plant_ecommerce_db["purchased"],
-        "shopping": plant_ecommerce_db["shopping"]
-    }
+    plants_collection = plant_ecommerce_db["plants"]
+    seeds_collection = plant_ecommerce_db["seeds"]
+    skincare_collection = plant_ecommerce_db["skincare"]
+    accessories_collection = plant_ecommerce_db["accessories"]
+    medicines_collection = plant_ecommerce_db["medicines"]
+    purchased_collection = plant_ecommerce_db["purchased"]
+    shopping_collection = plant_ecommerce_db["shopping"]
 
     print("✅ MongoDB setup complete (collections ready to use).")
 
 except Exception as e:
     print("❌ Failed to connect to MongoDB:", e)
-    collections = {}
-    # Optionally create None placeholders for all collections
-    collection_names = [
-        "users", "chat_messages", "conversations", "coupons", "contact_messages",
-        "plants", "seeds", "skincare", "accessories", "medicines", "purchased", "shopping"
-    ]
-    for name in collection_names:
-        collections[name] = None
+    
+    # Set collections to None if connection fails
+    users_collection = None
+    chat_messages_collection = None
+    conversations_collection = None
+    coupons_collection = None
+    contact_messages_collection = None
+    plants_collection = None
+    seeds_collection = None
+    skincare_collection = None
+    accessories_collection = None
+    medicines_collection = None
+    purchased_collection = None
+    shopping_collection = None
 
 # -------------------------
-# Helper function (optional)
+# Optional helper
 # -------------------------
 def get_collection(name):
-    """Get a MongoDB collection safely."""
-    if name in collections and collections[name]:
-        return collections[name]
-    else:
-        print(f"❌ Collection '{name}' is not available.")
-        return None
+    """Get a MongoDB collection safely by name."""
+    return globals().get(f"{name}_collection", None)
