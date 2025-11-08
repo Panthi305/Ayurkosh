@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from .user import user_routes
 from .chatbot import chatbot_bp
 from .plant import plant_bp
@@ -12,7 +13,23 @@ from .orders import orders_bp
 from .contact import contact_bp
 
 def register_routes(app):
+    # ---------------------------
+    # Enable CORS for user_routes blueprint
+    # ---------------------------
+    CORS(
+        user_routes,
+        origins=[
+            "http://localhost:5173",
+            "https://ayurkosh.onrender.com"
+        ],
+        supports_credentials=True
+    )
     app.register_blueprint(user_routes)
+
+    # ---------------------------
+    # Register other blueprints normally
+    # You can also attach CORS to other blueprints if needed
+    # ---------------------------
     app.register_blueprint(chatbot_bp, url_prefix="/")
     app.register_blueprint(plant_bp, url_prefix="/")
     app.register_blueprint(suggestion_bp, url_prefix="/api")
