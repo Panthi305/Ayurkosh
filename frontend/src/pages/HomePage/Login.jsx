@@ -32,6 +32,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             const res = await fetch("https://ayurkosh-backend.onrender.com/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify({ email, password }),
             });
             const data = await res.json();
@@ -80,6 +81,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
             const res = await fetch("https://ayurkosh-backend.onrender.com/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify({ fullName, email, password }),
             });
             const data = await res.json();

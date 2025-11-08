@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 from routes import register_routes  # this should import all blueprints
@@ -13,6 +14,7 @@ CORS(
         "http://localhost:5173",          # local frontend
         "https://ayurkosh.onrender.com"   # live frontend
     ]}},
+    
     supports_credentials=True
 )
 
@@ -30,4 +32,5 @@ def test_cors():
 register_routes(app)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Render assigns a PORT dynamically
+    app.run(debug=True, host="0.0.0.0", port=port)
