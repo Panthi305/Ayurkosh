@@ -1,10 +1,10 @@
 import './SHeader.css';
 import React, { useState, useEffect, useRef } from 'react';
 import Cart from './Cart';
-import LoginModal from '../Homepage/Login';
 import MessageModal from './MessageModal';
 import SuggestionBox from './SuggestionBox';
 import { useNavigate, useLocation } from 'react-router-dom';
+import LoginModal from '../HomePage/Login';
 
 const SHeader = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
