@@ -5,7 +5,7 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 import os
-from db import contact_messages
+from db import contact_messages_collection as contact_messages
 from datetime import datetime, timedelta, timezone
 
 

@@ -31,13 +31,14 @@ try:
     vedavana_db = client["vedavana"]
     plant_ecommerce_db = client["plantEcommerce"]
 
-    # Collections
+    # Vedavana DB collections
     users_collection = vedavana_db["users"]
-    chat_messages_collection = vedavana_db["chat_messages"]
-    conversations_collection = vedavana_db["conversations"]
+    chat_messages = vedavana_db["chat_messages"]
+    conversations = vedavana_db["conversations"]
     coupons_collection = vedavana_db["coupons"]
     contact_messages_collection = vedavana_db["contact_messages"]
 
+    # Plant E-commerce DB collections
     plants_collection = plant_ecommerce_db["plants"]
     seeds_collection = plant_ecommerce_db["seeds"]
     skincare_collection = plant_ecommerce_db["skincare"]
@@ -51,10 +52,10 @@ try:
 except Exception as e:
     print("❌ Failed to connect to MongoDB:", e)
     
-    # Set collections to None if connection fails
+    # If connection fails, set collections to None
     users_collection = None
-    chat_messages_collection = None
-    conversations_collection = None
+    chat_messages = None
+    conversations = None
     coupons_collection = None
     contact_messages_collection = None
     plants_collection = None
@@ -65,9 +66,7 @@ except Exception as e:
     purchased_collection = None
     shopping_collection = None
 
-# -------------------------
-# Optional helper
-# -------------------------
+# Optional helper function
 def get_collection(name):
-    """Get a MongoDB collection safely by name."""
-    return globals().get(f"{name}_collection", None)
+    """Return a collection by variable name, e.g., 'users_collection'"""
+    return globals().get(name, None)
