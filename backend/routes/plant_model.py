@@ -9,13 +9,17 @@ search_bp = Blueprint("search_bp", __name__)
 # ===== CONFIG =====
 API_URL = "https://plant-api-buj0.onrender.com/api/plants"
 API_KEY = "mysecretkey123"
-MODEL_NAME = "multi-qa-MiniLM-L6-cos-v1"
+MODEL_NAME = "all-MiniLM-L6-v2"   # 🔹 smaller & faster model
 BOOST_WEIGHT = 0.4
 
 # ===== LOAD MODEL =====
 print("⏳ Loading search model...")
 model = SentenceTransformer(MODEL_NAME)
 print("✅ Search model loaded.")
+
+# ===== GLOBAL CACHES =====
+plants_data = None
+plant_embeddings = None
 
 # ===== HELPER FUNCTIONS =====
 def fetch_plant_data():
@@ -82,11 +86,15 @@ def merge_plant_text(plant: dict) -> str:
 
     return ". ".join(text_parts)
 
-print("⏳ Preparing plant embeddings...")
-plants_data = fetch_plant_data()
-plant_texts = [merge_plant_text(p) for p in plants_data]
-plant_embeddings = model.encode(plant_texts, convert_to_tensor=True, show_progress_bar=True)
-print("✅ Embeddings ready.")
+# ===== LAZY LOADING =====
+def load_embeddings():
+    global plants_data, plant_embeddings
+    if plants_data is None or plant_embeddings is None:
+        print("⏳ Loading plant data and generating embeddings (first time)...")
+        plants_data = fetch_plant_data()
+        plant_texts = [merge_plant_text(p) for p in plants_data]
+        plant_embeddings = model.encode(plant_texts, convert_to_tensor=True)
+        print("✅ Plant embeddings ready.")
 
 # ===== SEARCH ENDPOINT =====
 @search_bp.route("/api/search_plants", methods=["POST"])
@@ -97,6 +105,8 @@ def search_plants():
 
     if not query:
         return jsonify({"error": "Query is required"}), 400
+
+    load_embeddings()  # 🔹 Only load once when needed
 
     query_clean = clean_query(query)
     query_tokens = tokenize_text(query_clean)
@@ -111,7 +121,7 @@ def search_plants():
         final_score = base_score + BOOST_WEIGHT * boost
         results_with_boost.append((final_score, idx))
 
-    results_with_boost.sort(key=lambda x: x[0])
+    results_with_boost.sort(key=lambda x: x[0], reverse=True)  # 🔹 sort highest first
 
     matched_plants = []
     for score, idx in results_with_boost[:top_k]:
