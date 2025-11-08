@@ -7,7 +7,7 @@ import Cart from './Cart';
 import MessageModal from './MessageModal';
 import './Shop.css';
 import { useSearchParams } from 'react-router-dom';
-import LoginModal from '../Homepage/Login';
+import LoginModal from '../HomePage/Login';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
