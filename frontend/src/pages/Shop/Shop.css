@@ -1,27 +1,36 @@
 /* Define color variables for consistency */
 :root {
-  --primary-green: #2e7d32; /* Plant */
+  --primary-green: #2e7d32;
+  /* Plant */
   --dark-green: #1b5e20;
-  --seed-color: #8B4513; /* Brown for Seeds */
-  --skincare-color: #42a5f5; /* Blue for Skincare */
-  --accessory-color: #ff9800; /* Orange for Accessories */
-  --medicine-color: #9c27b0; /* Purple for Medicines */
+  --seed-color: #8B4513;
+  /* Brown for Seeds (Not directly used in theme but for context) */
+  --skincare-color: #42a5f5;
+  /* Blue (Not directly used in theme but for context) */
+  --accessory-color: #ff9800;
+  /* Orange (Not directly used in theme but for context) */
+  --medicine-color: #9c27b0;
+  /* Purple (Not directly used in theme but for context) */
   --light-gray: #f9f9f9;
   --border-gray: #e0e0e0;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Base Layout */
 .shop-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding-top: 60px;
+  /* Space for fixed SHeader */
 }
 
 .shop-content {
   display: flex;
   flex: 1;
+  /* Use relative positioning for the main content to contain the absolute sidebar */
+  position: relative;
 }
 
 .main-content {
@@ -34,11 +43,14 @@
 .product-section {
   display: flex;
   flex-direction: column;
+  /* Ensure this section takes up the remaining viewport height */
   height: calc(100vh - 60px);
 }
 
+/* Header Section */
 .product-section-header {
-  margin-top: 20px;
+  margin-top: 0;
+  /* Remove top margin */
   background-color: #ffffff;
   border-bottom: 1px solid var(--border-gray);
   padding: 15px 20px;
@@ -52,6 +64,8 @@
   transition: box-shadow 0.3s ease;
   width: 100%;
   box-sizing: border-box;
+  flex-wrap: wrap;
+  /* Allow wrapping on smaller screens */
 }
 
 .header-left {
@@ -72,6 +86,8 @@
   cursor: pointer;
   padding: 0;
   transition: transform 0.3s ease;
+  z-index: 60;
+  /* Ensure it's above other elements */
 }
 
 .shamburger:hover {
@@ -98,6 +114,8 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  margin-top: 0;
+  /* Align with header items */
 }
 
 .product-nav button {
@@ -110,6 +128,8 @@
   font-size: 15px;
   font-weight: 500;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+  /* Prevent button text from breaking */
 }
 
 .product-nav button:hover {
@@ -118,16 +138,22 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Sidebar and Grid Layout */
 .product-section-content {
   display: flex;
   flex: 1;
   overflow: hidden;
+  /* Important for containing children when sidebar is off-screen */
   background-color: var(--light-gray);
   position: relative;
 }
 
+/* Sidebar Styling (Mobile-First: Starts hidden/collapsed) */
 .shop-sidebar {
-  width: 250px;
+  width: 280px;
+  /* A bit wider for mobile readability */
+  max-width: 80%;
+  /* Ensure it doesn't take up too much space on very small screens */
   background-color: #ffffff;
   padding: 20px;
   border-right: 1px solid var(--border-gray);
@@ -135,20 +161,19 @@
   overflow-y: auto;
   transition: transform 0.3s ease;
   box-sizing: border-box;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.15);
+  /* More prominent shadow for overlay */
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
-  transform: translateX(0);
+  z-index: 100;
+  /* Ensure sidebar is on top of content */
+  transform: translateX(-100%);
+  /* Default to hidden (mobile-first) */
 }
 
 .shop-sidebar.open {
   transform: translateX(0);
-}
-
-.shop-sidebar:not(.open) {
-  transform: translateX(-100%);
 }
 
 .shop-sidebar h3 {
@@ -178,9 +203,7 @@
   font-size: 14px;
   background-color: #ffffff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  /* Reset text-overflow related properties for better cross-browser consistency on options */
 }
 
 .filter-group select:focus {
@@ -189,6 +212,26 @@
   box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
 }
 
+.clear-search-btn {
+  background-color: #dc3545;
+  /* Red color for clearing search */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.clear-search-btn:hover {
+  background-color: #c82333;
+}
+
+
+/* Product Grid Container */
 .product-grid-container {
   flex: 1;
   overflow-y: auto;
@@ -196,21 +239,13 @@
   transition: all 0.3s ease;
   width: 100%;
   position: relative;
+  /* In mobile view, there is no margin-left, it occupies 100% width */
   margin-left: 0;
   box-sizing: border-box;
   height: 100%;
 }
 
-.shop-sidebar.open+.product-grid-container {
-  width: calc(100% - 250px);
-  margin-left: 250px;
-}
-
-.shop-sidebar:not(.open)+.product-grid-container {
-  width: 100%;
-  margin-left: 0;
-}
-
+/* Loading state */
 .loading {
   display: flex;
   justify-content: center;
@@ -242,6 +277,10 @@
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-gray);
+  flex-wrap: wrap;
+  /* Allow wrapping */
+  gap: 10px;
+  /* Space between title and button if wrapping */
 }
 
 .category-header h3 {
@@ -267,56 +306,69 @@
   background-color: var(--dark-green);
 }
 
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  .product-section-header {
-    padding: 10px 15px;
-  }
+/* --- Responsive Styles (Mobile-First overrides) --- */
 
-  .product-section-header h2 {
-    font-size: 20px;
-  }
-
-  .product-nav {
-    gap: 8px;
-  }
-
-  .product-nav button {
-    padding: 8px 16px;
-    font-size: 14px;
+/* Tablet and Small Desktop (Screen width > 768px) */
+@media screen and (min-width: 769px) {
+  .product-nav{
+    margin-top: 10px;
   }
 
   .shop-sidebar {
-    width: 70%;
-    top: 60px;
-    height: calc(100vh - 60px);
+    /* Set fixed position relative to its container at this size */
+    position: sticky;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    /* Default to visible */
+    width: 250px;
+    /* Default sidebar width */
+    max-width: none;
+    height: 100%;
+    z-index: 10;
+  }
+
+  .shop-sidebar:not(.open) {
+    /* Allow collapsing on desktop if desired, but this setup assumes it starts open */
+    transform: translateX(0);
+  }
+
+  .product-section-content {
+    /* Use grid for desktop layout */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    height: 100%;
+    /* Important for sticky sidebar */
+  }
+
+  .shop-sidebar {
+    /* In the grid, it occupies the first column */
+    grid-column: 1;
   }
 
   .product-grid-container {
-    padding: 10px;
-    width: 100%;
+    /* In the grid, it occupies the second column */
+    grid-column: 2;
     margin-left: 0;
+    width: auto;
   }
 
-  .shop-sidebar.open+.product-grid-container {
-    width: calc(100% - 70%);
-    margin-left: 70%;
+  .shop-sidebar.open {
+    /* If manually collapsed, adjust layout to hide it (optional) */
+    /* This depends on your desired desktop toggle behavior. 
+       Keeping it simple: sidebar is 250px or hidden. */
   }
 
-  .category-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .explore-button {
-    align-self: flex-end;
-  }
 }
 
-@media (max-width: 480px) {
+/* Small Screens / Mobile (Screen width <= 768px) */
+@media screen and (max-width: 768px) {
+
+  /* Header adjustments for space */
   .product-section-header {
+    padding: 10px 15px;
     flex-direction: column;
+    /* Stack elements vertically */
     align-items: flex-start;
     gap: 10px;
   }
@@ -324,23 +376,82 @@
   .header-left {
     width: 100%;
     justify-content: space-between;
+    /* Push title and hamburger apart */
+  }
+
+  .product-section-header h2 {
+    font-size: 20px;
   }
 
   .product-nav {
+    margin-top: 70px;
     width: 100%;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    /* Spread buttons out */
+    gap: 8px;
   }
 
+  .product-nav button {
+    padding: 8px 12px;
+    font-size: 13px;
+    flex: 1 1 auto;
+    /* Allow buttons to grow/shrink based on space */
+  }
+
+  /* Sidebar takes up most of the screen, overlays content */
   .shop-sidebar {
-    width: 85%;
+    width: 80%;
+    /* Takes 80% of viewport width */
+    top: 0;
+    height: 100%;
+    /* Full height of its container (product-section-content) */
+
   }
 
-  .shop-sidebar.open+.product-grid-container {
-    width: calc(100% - 85%);
-    margin-left: 85%;
+  /* Grid container behavior for mobile */
+  .product-grid-container {
+    padding: 10px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Overlay effect: When sidebar is open, the main content should have a slight visual shift/dim (optional but good UX) */
+  /* Since the main content is inside product-section-content, and the sidebar is absolute, we don't need margin shifts. 
+     The product-grid-container remains 100% width and the sidebar overlays. */
+
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .category-header h3 {
     font-size: 18px;
+  }
+
+  .explore-button {
+    align-self: flex-start;
+    /* Keep button aligned with text */
+  }
+
+}
+
+/* Very Small Screens / Extra Mobile (Screen width <= 480px) */
+@media (max-width: 480px) {
+
+  .product-nav {
+    /* Stack buttons more vertically if they don't fit horizontally */
+    margin-top: 70px;
+    flex-direction: column;
+  }
+
+  .product-nav button {
+    width: 100%;
+    /* Full width when stacked */
+  }
+
+  .shop-sidebar {
+    width: 90%;
+    /* Allow for more room on very small devices */
   }
 }
