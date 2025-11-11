@@ -1,19 +1,19 @@
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify, Response, make_response
 import requests
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
 from io import BytesIO
 import logging
 import urllib.request
 from urllib.request import urlopen
-from reportlab.lib.utils import ImageReader
 import re
 import ssl
 from datetime import datetime
+import json
 
 plant_bp = Blueprint("plant", __name__)
 
@@ -21,32 +21,54 @@ plant_bp = Blueprint("plant", __name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+# --- CONFIGURATION ---
 API_URL = "https://plant-api-buj0.onrender.com/api/plant"
-API_KEY = "mysecretkey123"  # Replace with actual secret if needed
+# Assuming the suggestion API is at /api/suggest on the same base URL
+API_SUGGEST_URL = "https://plant-api-buj0.onrender.com/api/suggest" 
+API_KEY = "mysecretkey123"
+CORS_ORIGIN = "http://localhost:5173"
 
 # Create an unverified SSL context to bypass certificate verification (temporary workaround)
 ssl_context = ssl._create_unverified_context()
+# ---------------------
 
-# ---------- Helper Function ----------
+# ---------- CORS & Helper Functions ----------
+
+def set_cors_headers(response, methods="GET, POST, OPTIONS", headers="Content-Type, Content-Disposition, X-Requested-With, Authorization"):
+    """Helper to set standard CORS headers on the final response."""
+    response.headers.add('Access-Control-Allow-Origin', CORS_ORIGIN)
+    response.headers.add('Access-Control-Allow-Methods', methods)
+    response.headers.add('Access-Control-Allow-Headers', headers)
+    response.headers.add('Access-Control-Max-Age', '86400')
+    return response
+
+def handle_options_response(methods, headers="Content-Type, Content-Disposition, X-Requested-With, Authorization"):
+    """Helper for handling CORS preflight (OPTIONS)."""
+    response = make_response()
+    set_cors_headers(response, methods=methods, headers=headers)
+    return response, 200
+
 def fetch_plant_data(plant_name):
-    """Fetch plant data from the remote API."""
+    """Fetch single plant data from the remote API."""
     try:
         response = requests.get(
             API_URL,
             params={"name": plant_name},
-            headers={"x-api-key": API_KEY}
+            headers={"x-api-key": API_KEY},
+            timeout=15 
         )
-        if response.status_code == 200:
-            return response.json()
-        elif response.status_code == 404:
+        response.raise_for_status() 
+        return response.json()
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
             return None
-        else:
-            raise Exception(f"API error {response.status_code}: {response.text}")
-    except Exception as e:
-        logger.error(f"Error fetching plant data: {str(e)}", exc_info=True)
+        logger.error(f"HTTP Error fetching plant data: {e.response.status_code}")
+        raise
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Network/Request Error fetching plant data: {str(e)}", exc_info=True)
         raise
 
-# ---------- Custom Canvas for Header and Footer ----------
+# ---------- Custom Canvas for Header and Footer (Unchanged) ----------
 def add_header_footer(canvas, doc):
     """Add header and footer to each page."""
     canvas.saveState()
@@ -70,38 +92,96 @@ def add_header_footer(canvas, doc):
     
     canvas.restoreState()
 
-# ---------- Endpoints ----------
+# ---------- Endpoints (FIXED) ----------
 
-@plant_bp.route("/api/search-plant", methods=["GET"])
+@plant_bp.route("/api/suggest-plants", methods=["GET", "OPTIONS"])
+def suggest_plants():
+    # Fix 1: Handle OPTIONS preflight
+    if request.method == 'OPTIONS':
+        return handle_options_response(methods="GET, OPTIONS", headers="Content-Type")
+
+    query = request.args.get("query", "").strip()
+    if not query:
+        response = jsonify([])
+        # Fix 2: Apply CORS header to GET response
+        return set_cors_headers(response), 200
+
+    try:
+        # Fetch suggestions from the external API
+        response = requests.get(
+            API_SUGGEST_URL,
+            params={"query": query},
+            headers={"x-api-key": API_KEY},
+            timeout=10
+        )
+        response.raise_for_status() 
+        suggestions = response.json()
+        
+        # Ensure the response is a list
+        if not isinstance(suggestions, list):
+            suggestions = []
+            
+        json_response = jsonify(suggestions)
+        # Fix 2: Apply CORS header to successful GET response
+        return set_cors_headers(json_response), 200
+        
+    except requests.exceptions.RequestException as e:
+        # Fix 3: Robust error handling for 502/Network errors
+        logger.error(f"Exception in suggest_plants during upstream call: {str(e)}", exc_info=True)
+        error_message = f"Failed to fetch suggestions from upstream API. Details: {str(e)}"
+        error_response = jsonify({"error": error_message})
+        # Apply CORS header to error response
+        return set_cors_headers(error_response), 502
+    except Exception as e:
+        # General unexpected error
+        logger.error(f"General Exception in suggest_plants: {str(e)}", exc_info=True)
+        error_response = jsonify({"error": "Internal server error during suggestion fetch", "details": str(e)})
+        # Apply CORS header to error response
+        return set_cors_headers(error_response), 500
+
+
+@plant_bp.route("/api/search-plant", methods=["GET", "OPTIONS"])
 def search_plant():
+    # Fix 1: Handle OPTIONS preflight
+    if request.method == 'OPTIONS':
+        return handle_options_response(methods="GET, OPTIONS", headers="Content-Type")
+        
     plant_name = request.args.get("name", "").strip()
     if not plant_name:
-        return jsonify({"error": "Plant name is required"}), 400
+        response = jsonify({"error": "Plant name is required"})
+        # Fix 2: Apply CORS header to 400 response
+        return set_cors_headers(response), 400
 
     try:
         plant = fetch_plant_data(plant_name)
         if plant:
-            return jsonify(plant), 200
+            json_response = jsonify(plant)
+            # Fix 2: Apply CORS header to successful GET response
+            return set_cors_headers(json_response), 200
         else:
-            return jsonify({"error": "Plant not found"}), 404
+            response = jsonify({"error": "Plant not found"})
+            # Fix 2: Apply CORS header to 404 response
+            return set_cors_headers(response), 404
     except Exception as e:
+        # Fix 3: Robust error handling for 500
         logger.error(f"Exception in search_plant: {str(e)}", exc_info=True)
-        return jsonify({"error": "Internal server error", "message": str(e)}), 500
+        error_response = jsonify({"error": "Internal server error during plant search", "message": str(e)})
+        # Apply CORS header to 500 error response
+        return set_cors_headers(error_response), 500
+
 
 @plant_bp.route('/api/generate-pdf', methods=['GET', 'OPTIONS'])
 def generate_pdf():
+    # Fix 1: Handle OPTIONS preflight
     if request.method == 'OPTIONS':
-        response = Response()
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-        response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Content-Disposition, X-Requested-With, Authorization')
-        response.headers.add('Access-Control-Max-Age', '86400')
-        return response, 200
+        return handle_options_response(methods="GET, OPTIONS", headers="Content-Type, Content-Disposition, X-Requested-With, Authorization")
 
     name = request.args.get('name')
     if not name:
         logger.error("No plant name provided")
-        return jsonify({"error": "Plant name is required"}), 400
+        response = jsonify({"error": "Plant name is required"})
+        # Fix 2: Apply CORS header to 400 response
+        return set_cors_headers(response), 400
 
     try:
         logger.debug(f"Generating PDF for plant: {name}")
@@ -110,78 +190,80 @@ def generate_pdf():
         plant = fetch_plant_data(name)
         if not plant:
             logger.error(f"Plant '{name}' not found in API")
-            return jsonify({"error": "Plant not found"}), 404
-        logger.debug(f"Plant data: {plant}")
-
-        # Validate required fields
+            response = jsonify({"error": "Plant not found"})
+            # Fix 2: Apply CORS header to 404 response
+            return set_cors_headers(response), 404
+        
         if not plant.get('common_name'):
             logger.error(f"Plant data missing common_name: {plant}")
-            return jsonify({"error": "Invalid plant data: missing common_name"}), 400
+            response = jsonify({"error": "Invalid plant data: missing common_name"})
+            # Fix 2: Apply CORS header to 400 response
+            return set_cors_headers(response), 400
 
         # Generate PDF with enhanced styling
         buffer = BytesIO()
         doc = SimpleDocTemplate(
-            buffer,
-            pagesize=letter,
-            rightMargin=0.75*inch,
-            leftMargin=0.75*inch,
-            topMargin=1*inch,
-            bottomMargin=1*inch
+             buffer,
+             pagesize=letter,
+             rightMargin=0.75*inch,
+             leftMargin=0.75*inch,
+             topMargin=1*inch,
+             bottomMargin=1*inch
         )
         styles = getSampleStyleSheet()
 
-        # Custom styles
+        # Custom styles definition (Unchanged)
         title_style = ParagraphStyle(
-            name='TitleStyle',
-            parent=styles['Heading1'],
-            fontName='Helvetica-Bold',
-            fontSize=32,
-            leading=36,
-            alignment=1,  # Center
-            spaceAfter=12,
-            textColor=colors.HexColor('#2E7D32')  # Dark green
+             name='TitleStyle',
+             parent=styles['Heading1'],
+             fontName='Helvetica-Bold',
+             fontSize=32,
+             leading=36,
+             alignment=1,
+             spaceAfter=12,
+             textColor=colors.HexColor('#2E7D32') 
         )
         subtitle_style = ParagraphStyle(
-            name='SubtitleStyle',
-            parent=styles['Heading2'],
-            fontName='Helvetica-Oblique',
-            fontSize=16,
-            leading=20,
-            alignment=1,  # Center
-            spaceAfter=16,
-            textColor=colors.HexColor('#4B5EAA')  # Soft blue
+             name='SubtitleStyle',
+             parent=styles['Heading2'],
+             fontName='Helvetica-Oblique',
+             fontSize=16,
+             leading=20,
+             alignment=1,
+             spaceAfter=16,
+             textColor=colors.HexColor('#4B5EAA') 
         )
         section_style = ParagraphStyle(
-            name='SectionStyle',
-            parent=styles['Heading2'],
-            fontName='Helvetica-Bold',
-            fontSize=14,
-            leading=18,
-            spaceBefore=16,
-            spaceAfter=10,
-            textColor=colors.HexColor('#2E7D32'),
-            backColor=colors.HexColor('#E8F5E9')  # Light green background
+             name='SectionStyle',
+             parent=styles['Heading2'],
+             fontName='Helvetica-Bold',
+             fontSize=14,
+             leading=18,
+             spaceBefore=16,
+             spaceAfter=10,
+             textColor=colors.HexColor('#2E7D32'),
+             backColor=colors.HexColor('#E8F5E9') 
         )
         item_style = ParagraphStyle(
-            name='ItemStyle',
-            parent=styles['Normal'],
-            fontName='Helvetica',
-            fontSize=10,
-            leading=14,
-            leftIndent=20,
-            spaceAfter=8,
-            textColor=colors.black,
-            firstLineIndent=-10
+             name='ItemStyle',
+             parent=styles['Normal'],
+             fontName='Helvetica',
+             fontSize=10,
+             leading=14,
+             leftIndent=20,
+             spaceAfter=8,
+             textColor=colors.black,
+             firstLineIndent=-10
         )
         caption_style = ParagraphStyle(
-            name='CaptionStyle',
-            parent=styles['Normal'],
-            fontName='Helvetica-Oblique',
-            fontSize=9,
-            leading=12,
-            alignment=1,  # Center
-            spaceAfter=12,
-            textColor=colors.grey
+             name='CaptionStyle',
+             parent=styles['Normal'],
+             fontName='Helvetica-Oblique',
+             fontSize=9,
+             leading=12,
+             alignment=1,
+             spaceAfter=12,
+             textColor=colors.grey
         )
 
         elements = []
@@ -191,17 +273,14 @@ def generate_pdf():
         elements.append(Paragraph(plant.get('botanical_name', 'Not available'), subtitle_style))
         elements.append(Spacer(1, 0.3*inch))
 
-        # Image
+        # Image fetching logic (Retained existing complex logic)
         images = plant.get('images', [])
         logger.debug(f"Images field: {images}")
         image_added = False
         if images and isinstance(images, list) and len(images) > 0:
             for img_url in images:
-                if not img_url or not isinstance(img_url, str):
+                if not img_url or not isinstance(img_url, str) or not re.match(r'.*\.(jpe?g|png|gif|webp|svg|bmp|ico|cms)$', img_url, re.IGNORECASE):
                     logger.warning(f"Skipping invalid image URL: {img_url}")
-                    continue
-                if not re.match(r'.*\.(jpe?g|png|gif|webp|svg|bmp|ico|cms)$', img_url, re.IGNORECASE):
-                    logger.warning(f"Image URL does not match supported formats: {img_url}")
                     continue
                 try:
                     logger.debug(f"Attempting to fetch image from: {img_url}")
@@ -232,12 +311,12 @@ def generate_pdf():
         elements.append(Paragraph(f"<b>Family:</b> {plant.get('family', 'Not available')}", item_style))
         elements.append(Spacer(1, 0.4*inch))
 
-        # Ratings Table
+        # Ratings Table logic (Unchanged)
         ratings_data = [["Rating", "Value"]]
         ratings = [
-            ('Eligibility Rating', plant.get('eligibility_rating')),
-            ('Medical Rating', plant.get('medical_rating')),
-            ('Other Uses Rating', plant.get('other_uses_rating'))
+             ('Eligibility Rating', plant.get('eligibility_rating')),
+             ('Medical Rating', plant.get('medical_rating')),
+             ('Other Uses Rating', plant.get('other_uses_rating'))
         ]
         for label, value in ratings:
             if value is not None:
@@ -252,75 +331,75 @@ def generate_pdf():
         if len(ratings_data) > 1:
             ratings_table = Table(ratings_data, colWidths=[3.5*inch, 2*inch])
             ratings_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2E7D32')),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 12),
-                ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
-                ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#F1F8E9')),
-                ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
-                ('FONTSIZE', (0, 1), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-                ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#2E7D32')),
-                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-                ('TOPPADDING', (0, 1), (-1, -1), 8),
-                ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
-                ('LEFTPADDING', (0, 0), (-1, -1), 10),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 10)
+                 ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2E7D32')),
+                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                 ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                 ('FONTSIZE', (0, 0), (-1, 0), 12),
+                 ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+                 ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#F1F8E9')),
+                 ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+                 ('FONTSIZE', (0, 1), (-1, -1), 10),
+                 ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                 ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#2E7D32')),
+                 ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                 ('TOPPADDING', (0, 1), (-1, -1), 8),
+                 ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
+                 ('LEFTPADDING', (0, 0), (-1, -1), 10),
+                 ('RIGHTPADDING', (0, 0), (-1, -1), 10)
             ]))
             elements.append(ratings_table)
         elements.append(Spacer(1, 0.4*inch))
 
-        # Sections
+        # Sections logic (Unchanged)
         for section_name, items in {
-            "Summary": [
-                ("Overview", plant.get('summary', 'No summary available')),
-                ("Genus", plant.get('genus')),
-                ("Flowering Season", plant.get('flowering_season')),
-                ("Fruiting Season", plant.get('fruiting_season')),
-                ("Conservation Status", plant.get('conservation_status')),
-                ("Featured", "Yes" if plant.get('featured') else "No")
-            ],
-            "Cultivation": [
-                ("Sun Exposure", plant.get('sun_exposure')),
-                ("Soil Type", plant.get('soil_type')),
-                ("Water Needs", plant.get('water_needs')),
-                ("Temperature Range", plant.get('temperature_range')),
-                ("Harvesting Time", plant.get('harvesting_time')),
-                ("Propagation Methods", plant.get('propagation_methods')),
-                ("Care Tips", plant.get('care_tips')),
-                ("Additional Details", plant.get('cultivation_details'))
-            ],
-            "Medicinal": [
-                ("Medicinal Uses", plant.get('medicinal_uses')),
-                ("Medicinal Properties", plant.get('medicinal_properties')),
-                ("Edible Parts", plant.get('edible_parts')),
-                ("Edible Uses", plant.get('edible_uses')),
-                ("Other Uses", plant.get('other_uses')),
-                ("Usage Parts", plant.get('usage_parts')),
-                ("Medicinal Description", plant.get('medicinal_description')),
-                ("Edible Description", plant.get('edible_parts_description'))
-            ],
-            "Botanical": [
-                ("Plant Type", plant.get('plant_type')),
-                ("Leaf Type", plant.get('leaf_type')),
-                ("Habit", plant.get('habit')),
-                ("USDA Hardiness Zone", plant.get('usda_hardiness_zone')),
-                ("Physical Characteristics", plant.get('physical_characteristics'))
-            ],
-            "Hazards": [
-                ("Known Hazards", plant.get('known_hazards', 'No known hazards recorded')),
-                ("Storage", plant.get('storage')),
-                ("Weed Potential", plant.get('weed_potential'))
-            ],
-            "Distribution": [
-                ("Native Range", plant.get('native_range', 'No distribution information available')),
-                ("Other Names", plant.get('other_names')),
-                ("Traditional Systems", plant.get('traditional_systems')),
-                ("Search Tags", plant.get('search_tags')),
-                ("Slug", plant.get('slug'))
-            ]
+             "Summary": [
+                 ("Overview", plant.get('summary', 'No summary available')),
+                 ("Genus", plant.get('genus')),
+                 ("Flowering Season", plant.get('flowering_season')),
+                 ("Fruiting Season", plant.get('fruiting_season')),
+                 ("Conservation Status", plant.get('conservation_status')),
+                 ("Featured", "Yes" if plant.get('featured') else "No")
+             ],
+             "Cultivation": [
+                 ("Sun Exposure", plant.get('sun_exposure')),
+                 ("Soil Type", plant.get('soil_type')),
+                 ("Water Needs", plant.get('water_needs')),
+                 ("Temperature Range", plant.get('temperature_range')),
+                 ("Harvesting Time", plant.get('harvesting_time')),
+                 ("Propagation Methods", plant.get('propagation_methods')),
+                 ("Care Tips", plant.get('care_tips')),
+                 ("Additional Details", plant.get('cultivation_details'))
+             ],
+             "Medicinal": [
+                 ("Medicinal Uses", plant.get('medicinal_uses')),
+                 ("Medicinal Properties", plant.get('medicinal_properties')),
+                 ("Edible Parts", plant.get('edible_parts')),
+                 ("Edible Uses", plant.get('edible_uses')),
+                 ("Other Uses", plant.get('other_uses')),
+                 ("Usage Parts", plant.get('usage_parts')),
+                 ("Medicinal Description", plant.get('medicinal_description')),
+                 ("Edible Description", plant.get('edible_parts_description'))
+             ],
+             "Botanical": [
+                 ("Plant Type", plant.get('plant_type')),
+                 ("Leaf Type", plant.get('leaf_type')),
+                 ("Habit", plant.get('habit')),
+                 ("USDA Hardiness Zone", plant.get('usda_hardiness_zone')),
+                 ("Physical Characteristics", plant.get('physical_characteristics'))
+             ],
+             "Hazards": [
+                 ("Known Hazards", plant.get('known_hazards', 'No known hazards recorded')),
+                 ("Storage", plant.get('storage')),
+                 ("Weed Potential", plant.get('weed_potential'))
+             ],
+             "Distribution": [
+                 ("Native Range", plant.get('native_range', 'No distribution information available')),
+                 ("Other Names", plant.get('other_names')),
+                 ("Traditional Systems", plant.get('traditional_systems')),
+                 ("Search Tags", plant.get('search_tags')),
+                 ("Slug", plant.get('slug'))
+             ]
         }.items():
             elements.append(Paragraph(section_name, section_style))
             section_items = []
@@ -338,12 +417,14 @@ def generate_pdf():
         # Return PDF as response with CORS headers
         buffer.seek(0)
         response = Response(buffer, mimetype='application/pdf', headers={
-            'Content-Disposition': f'attachment; filename={name}_Plant_Report.pdf'
+             'Content-Disposition': f'attachment; filename={name}_Plant_Report.pdf'
         })
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-        logger.debug("PDF generation successful")
-        return response
+        # Fix 2: Apply CORS header to final PDF response
+        return set_cors_headers(response)
 
     except Exception as e:
+        # Fix 3: Robust error handling for 500
         logger.error(f"Error generating PDF: {str(e)}", exc_info=True)
-        return jsonify({"error": "Failed to generate PDF", "details": str(e)}), 500
+        error_response = jsonify({"error": "Failed to generate PDF", "details": str(e)})
+        # Apply CORS header to error response
+        return set_cors_headers(error_response), 500
